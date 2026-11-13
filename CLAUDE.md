@@ -10,14 +10,11 @@ Arcade Vault: plataforma para jugar online y competir por la mayor cantidad de p
 
 El desarrollo sigue **Spec Driven Design** con los comandos `/spec` y `/spec-impl` de las skills de https://github.com/Klerith/fernando-skills (instalar con `npx skills@latest add Klerith/fernando-skills`). Las features nuevas parten de una spec antes de implementarse.
 
-## Comandos
-
-- `npm run dev` — servidor de desarrollo (Turbopack) en http://localhost:3000
-- `npm run build` — build de producción
-- `npm run start` — servir el build
-- `npm run lint` — ESLint 9 (flat config, `eslint-config-next` core-web-vitals + typescript)
-
 No hay framework de tests configurado todavía.
+
+## Skills
+
+Usa siempre /frontend-design para diseñar la interfaz de usuario.
 
 ## Stack y particularidades
 
