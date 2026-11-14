@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Courier_Prime, JetBrains_Mono, Press_Start_2P } from "next/font/google";
+import { Suspense } from "react";
+import { Footer } from "@/app/components/footer";
+import { Nav, NavShell } from "@/app/components/nav";
 import { SessionProvider } from "@/app/components/session-provider";
 import "./globals.css";
 
@@ -36,7 +39,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="av-bg" aria-hidden="true" />
         <div className="av-noise" aria-hidden="true" />
         <div id="root">
-          <SessionProvider>{children}</SessionProvider>
+          <SessionProvider>
+            {/* usePathname puede suspender en rutas con params desconocidos (cacheComponents):
+                el fallback pinta la misma navbar sin enlace activo. */}
+            <Suspense fallback={<NavShell pathname={null} />}>
+              <Nav />
+            </Suspense>
+            <main className="av-main">{children}</main>
+            <Footer />
+          </SessionProvider>
         </div>
       </body>
     </html>
