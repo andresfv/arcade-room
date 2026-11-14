@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { Courier_Prime, JetBrains_Mono, Press_Start_2P } from "next/font/google";
+import { Suspense } from "react";
+import { Footer } from "@/app/components/footer";
+import { Nav, NavShell } from "@/app/components/nav";
+import { SessionProvider } from "@/app/components/session-provider";
 import "./globals.css";
 
 const pressStart = Press_Start_2P({
@@ -21,7 +25,10 @@ const courierPrime = Courier_Prime({
 });
 
 export const metadata: Metadata = {
-  title: "Arcade Vault · Portal Retro",
+  title: {
+    template: "%s · Arcade Room",
+    default: "Arcade Room · Portal Retro",
+  },
   description: "Juega online y compite por la mayor cantidad de puntos.",
 };
 
@@ -34,7 +41,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <div className="av-bg" aria-hidden="true" />
         <div className="av-noise" aria-hidden="true" />
-        <div id="root">{children}</div>
+        <div id="root">
+          <SessionProvider>
+            {/* usePathname puede suspender en rutas con params desconocidos (cacheComponents):
+                el fallback pinta la misma navbar sin enlace activo. */}
+            <Suspense fallback={<NavShell pathname={null} />}>
+              <Nav />
+            </Suspense>
+            <main className="av-main">{children}</main>
+            <Footer />
+          </SessionProvider>
+        </div>
       </body>
     </html>
   );
