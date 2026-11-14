@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { GAMES, getGame, seededScores } from "@/app/data";
@@ -6,6 +7,12 @@ import { GAMES, getGame, seededScores } from "@/app/data";
 // Un id desconocido se resuelve en runtime y redirige a la Biblioteca.
 export function generateStaticParams() {
   return GAMES.map((g) => ({ id: g.id }));
+}
+
+export async function generateMetadata({ params }: PageProps<"/juegos/[id]">): Promise<Metadata> {
+  const { id } = await params;
+  const game = getGame(id);
+  return game ? { title: game.title } : {};
 }
 
 const TOP_CLASS = [" top1", " top2", " top3"];

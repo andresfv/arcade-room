@@ -1,5 +1,9 @@
+import type { Metadata } from "next";
 import { LibraryBrowser } from "@/app/components/library-browser";
 import { CATS, GAMES } from "@/app/data";
+
+// title.template del layout no aplica a la página del mismo segmento: se fija el título completo.
+export const metadata: Metadata = { title: { absolute: "Biblioteca · Arcade Room" } };
 
 export default function LibraryPage() {
   return (
