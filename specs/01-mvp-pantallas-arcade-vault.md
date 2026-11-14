@@ -1,6 +1,6 @@
 # SPEC 01 — MVP visual de Arcade Vault
 
-> **Status:** Aprobado
+> **Status:** Implementado
 > **Depends on:** —
 > **Date:** 2026-11-14
 > **Objective:** Portar a Next.js App Router las cinco pantallas de `references/templates/` (Biblioteca, Detalle, Reproductor, Acceso y Salón de la Fama) con datos ficticios y sin ningún juego real.
@@ -138,28 +138,28 @@ Usar la skill `/frontend-design` en cada paso que construya UI (requisito de `CL
 
 ## Acceptance criteria
 
-- [ ] `npm run build` termina sin errores.
-- [ ] `npm run lint` termina sin errores.
-- [ ] Ninguna pantalla muestra errores ni advertencias de hidratación en la consola del navegador.
-- [ ] `/` muestra los 8 juegos de la plantilla.
-- [ ] Escribir "free" en el buscador deja solo FREEFALL.
-- [ ] El chip SHOOTER deja solo INVADERS y ROCKS.
-- [ ] Una búsqueda sin coincidencias muestra "NO HAY RESULTADOS".
-- [ ] Hacer clic en una tarjeta navega a `/juegos/<id>` de ese juego.
-- [ ] `/juegos/caida` muestra portada, descripción larga, mejor global `184.220` y 10 filas de leaderboard.
-- [ ] `/juegos/no-existe` y `/juegos/no-existe/jugar` redirigen a `/`.
-- [ ] En `/juegos/<id>/jugar` la puntuación sube sola y se detiene con PAUSA.
-- [ ] FIN abre el modal "FIN DEL JUEGO" con la puntuación final.
-- [ ] GUARDAR PUNTUACIÓN añade una entrada `{ game, score, name, at }` a `localStorage["av_scores"]`.
-- [ ] Iniciar sesión como "neonfox" guarda `{"name":"NEONFOX"}` en `av_user` y la navbar muestra "NEONFOX ▾".
-- [ ] Recargar la página mantiene la sesión.
-- [ ] Pulsar "NEONFOX ▾" cierra sesión y borra `av_user`.
-- [ ] `/salon` muestra podio y 12 filas; cambiar de pestaña cambia el ranking.
-- [ ] Con sesión, `/salon` muestra la fila "TU MEJOR MARCA"; sin sesión no aparece.
-- [ ] El enlace activo de la navbar corresponde a la ruta actual (Biblioteca en `/` y `/juegos/*`; Salón en `/salon`).
-- [ ] A ancho móvil (≤ 768 px) se ve el botón ≡ y abre el panel lateral.
-- [ ] Cada pantalla coincide visualmente con su equivalente en `references/templates/Arcade Vault.html` en escritorio y móvil.
-- [ ] `app/page.tsx` ya no contiene el contenido de ejemplo de `create-next-app`.
+- [x] `npm run build` termina sin errores.
+- [x] `npm run lint` termina sin errores.
+- [x] Ninguna pantalla muestra errores ni advertencias de hidratación en la consola del navegador.
+- [x] `/` muestra los 8 juegos de la plantilla.
+- [x] Escribir "free" en el buscador deja solo FREEFALL.
+- [x] El chip SHOOTER deja solo INVADERS y ROCKS.
+- [x] Una búsqueda sin coincidencias muestra "NO HAY RESULTADOS".
+- [x] Hacer clic en una tarjeta navega a `/juegos/<id>` de ese juego.
+- [x] `/juegos/caida` muestra portada, descripción larga, mejor global `184.220` y 10 filas de leaderboard.
+- [x] `/juegos/no-existe` y `/juegos/no-existe/jugar` redirigen a `/`.
+- [x] En `/juegos/<id>/jugar` la puntuación sube sola y se detiene con PAUSA.
+- [x] FIN abre el modal "FIN DEL JUEGO" con la puntuación final.
+- [x] GUARDAR PUNTUACIÓN añade una entrada `{ game, score, name, at }` a `localStorage["av_scores"]`.
+- [x] Iniciar sesión como "neonfox" guarda `{"name":"NEONFOX"}` en `av_user` y la navbar muestra "NEONFOX ▾".
+- [x] Recargar la página mantiene la sesión.
+- [x] Pulsar "NEONFOX ▾" cierra sesión y borra `av_user`.
+- [x] `/salon` muestra podio y 12 filas; cambiar de pestaña cambia el ranking.
+- [x] Con sesión, `/salon` muestra la fila "TU MEJOR MARCA"; sin sesión no aparece.
+- [x] El enlace activo de la navbar corresponde a la ruta actual (Biblioteca en `/` y `/juegos/*`; Salón en `/salon`).
+- [x] A ancho móvil (≤ 768 px) se ve el botón ≡ y abre el panel lateral.
+- [x] Cada pantalla coincide visualmente con su equivalente en `references/templates/Arcade Vault.html` en escritorio y móvil.
+- [x] `app/page.tsx` ya no contiene el contenido de ejemplo de `create-next-app`.
 
 ---
 
@@ -179,6 +179,8 @@ Usar la skill `/frontend-design` en cada paso que construya UI (requisito de `CL
 - **Sí:** simulación de partida idéntica a la plantilla. Valida todo el flujo visual del Reproductor sin juego real.
 - **Sí:** `redirect("/")` para `id` inválido. Decisión del usuario.
 - **No:** `notFound()` con página 404 propia.
+- **Sí:** en `/juegos/[id]` y `/juegos/[id]/jugar` la lectura de `params` va en un componente hijo dentro de `<Suspense fallback={<RouteLoading />}>` (`app/components/route-loading.tsx`, texto "CARGANDO_"). Con `partialPrefetching` activo, leer `params` fuera de `<Suspense>` provoca el error de desarrollo `instant-shell-url-data`.
+- **No:** `export const instant = false`. Convierte la ruta en bloqueante y pierde la navegación instantánea.
 - **Sí:** Salón de la Fama igual que la plantilla (ranking con `seededScores` y fila de usuario inventada).
 - **No:** leer `av_scores` en el Salón. Va en la spec de puntuaciones reales.
 - **Sí:** verificación con build, lint y revisión manual.

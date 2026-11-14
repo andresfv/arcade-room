@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useSession } from "@/app/components/session-provider";
+import { useHydrated, useSession } from "@/app/components/session-provider";
 
 type Section = "biblioteca" | "salon" | "auth";
 
@@ -22,6 +22,7 @@ function sectionFor(pathname: string | null): Section | null {
  */
 export function NavShell({ pathname }: { pathname: string | null }) {
   const { user, logout } = useSession();
+  const hydrated = useHydrated();
   const [open, setOpen] = useState(false);
   const active = sectionFor(pathname);
   const cls = (s: Section) => (active === s ? "active" : undefined);
@@ -58,7 +59,12 @@ export function NavShell({ pathname }: { pathname: string | null }) {
           <span className="coin" aria-hidden="true"></span>
           <span>CRÉDITOS · 03</span>
         </div>
-        {user ? (
+        {!hydrated ? (
+          // Aún no se sabe si hay sesión: reserva el hueco sin mostrar "Iniciar Sesión".
+          <span className="btn auth-btn" aria-hidden="true" style={{ visibility: "hidden" }}>
+            Iniciar Sesión
+          </span>
+        ) : user ? (
           <button className="btn ghost auth-btn" type="button" onClick={logout} title="Cerrar sesión">
             {user.name} ▾
           </button>

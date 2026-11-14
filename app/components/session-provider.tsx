@@ -21,14 +21,20 @@ export interface SavedScore {
   at: number;
 }
 
-interface SessionContextValue {
-  user: SessionUser | null;
+interface SessionActions {
   login: (user: SessionUser | null) => void;
   logout: () => void;
   saveScore: (entry: Omit<SavedScore, "at">) => void;
 }
 
-const SessionContext = createContext<SessionContextValue | null>(null);
+interface SessionContextValue extends SessionActions {
+  user: SessionUser | null;
+}
+
+// El contexto solo transporta las acciones (estables). El usuario NO viaja por contexto:
+// cada consumidor lo lee con useSyncExternalStore para hidratarse con la instantánea del
+// servidor aunque se hidrate más tarde que el provider (p. ej. dentro de un <Suspense>).
+const SessionContext = createContext<SessionActions | null>(null);
 
 function subscribe(onChange: () => void) {
   window.addEventListener("storage", onChange);
@@ -69,9 +75,6 @@ function notify() {
 }
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
-  const raw = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  const user = useMemo(() => parseUser(raw), [raw]);
-
   const login = useCallback((next: SessionUser | null) => {
     try {
       if (next) localStorage.setItem(USER_KEY, JSON.stringify(next));
@@ -95,13 +98,29 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     } catch {}
   }, []);
 
-  const value = useMemo(() => ({ user, login, logout, saveScore }), [user, login, logout, saveScore]);
+  const actions = useMemo(() => ({ login, logout, saveScore }), [login, logout, saveScore]);
 
-  return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>;
+  return <SessionContext.Provider value={actions}>{children}</SessionContext.Provider>;
+}
+
+const noopSubscribe = () => () => {};
+
+/**
+ * false en el servidor y durante la hidratación; true después.
+ * Sirve para no enseñar el estado "sin sesión" mientras aún no se ha leído localStorage.
+ */
+export function useHydrated(): boolean {
+  return useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false,
+  );
 }
 
 export function useSession(): SessionContextValue {
-  const ctx = useContext(SessionContext);
-  if (!ctx) throw new Error("useSession debe usarse dentro de <SessionProvider>");
-  return ctx;
+  const actions = useContext(SessionContext);
+  if (!actions) throw new Error("useSession debe usarse dentro de <SessionProvider>");
+  const raw = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const user = useMemo(() => parseUser(raw), [raw]);
+  return useMemo(() => ({ ...actions, user }), [actions, user]);
 }

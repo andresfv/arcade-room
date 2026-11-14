@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import { RouteLoading } from "@/app/components/route-loading";
 import { GAMES, getGame, seededScores } from "@/app/data";
 
 // Prerenderiza el detalle de todos los juegos conocidos.
@@ -17,7 +19,16 @@ export async function generateMetadata({ params }: PageProps<"/juegos/[id]">): P
 
 const TOP_CLASS = [" top1", " top2", " top3"];
 
-export default async function GameDetailPage({ params }: PageProps<"/juegos/[id]">) {
+// Solo la parte que lee `params` va dentro de <Suspense>, para que el App Shell sea común a todas las URLs.
+export default function GameDetailPage({ params }: PageProps<"/juegos/[id]">) {
+  return (
+    <Suspense fallback={<RouteLoading />}>
+      <GameDetail params={params} />
+    </Suspense>
+  );
+}
+
+async function GameDetail({ params }: Pick<PageProps<"/juegos/[id]">, "params">) {
   const { id } = await params;
   const game = getGame(id);
   if (!game) redirect("/");
