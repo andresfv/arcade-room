@@ -25,7 +25,7 @@ const courierPrime = Courier_Prime({
 });
 
 export const metadata: Metadata = {
-  title: "Arcade Vault · Portal Retro",
+  title: "Arcade Room · Portal Retro",
   description: "Juega online y compite por la mayor cantidad de puntos.",
 };
 

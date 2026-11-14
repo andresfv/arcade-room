@@ -128,11 +128,11 @@ Usar la skill `/frontend-design` en cada paso que construya UI (requisito de `CL
 2. **Sesión.** Crear `app/components/session-provider.tsx`. Lee `av_user` tras montar (sin desajuste de hidratación). Expone `login(user | null)`, `logout()` y `saveScore(entry)`. Envolver `children` en `app/layout.tsx`.
 3. **Marco.** Crear `nav.tsx` y `footer.tsx`. Montarlos en `app/layout.tsx` alrededor de `<main className="av-main">`. "Biblioteca" queda activa en `/` y en `/juegos/*`. "Iniciar Sesión" enlaza a `/login`. Con sesión, el botón muestra `{name} ▾` y cierra sesión. Verificar: el menú hamburguesa abre y cierra el panel móvil.
 4. **Biblioteca.** Reemplazar `app/page.tsx`. Crear `library-browser.tsx` y `game-card.tsx`. Tarjeta y botón JUGAR navegan a `/juegos/[id]`. Verificar: filtrar por texto y por categoría; buscar "zzz" muestra "NO HAY RESULTADOS".
-5. **Detalle.** Crear `app/juegos/[id]/page.tsx` con `generateStaticParams` desde `GAMES`. Si `getGame(id)` es `undefined`, `redirect("/")`. "JUGAR AHORA" va a `/juegos/[id]/jugar`; "VOLVER AL VAULT" va a `/`. Verificar: `/juegos/no-existe` termina en `/`.
+5. **Detalle.** Crear `app/juegos/[id]/page.tsx` con `generateStaticParams` desde `GAMES`. Si `getGame(id)` es `undefined`, `redirect("/")`. "JUGAR AHORA" va a `/juegos/[id]/jugar`; "VOLVER A LA BIBLIOTECA" va a `/`. Verificar: `/juegos/no-existe` termina en `/`.
 6. **Reproductor.** Crear `app/juegos/[id]/jugar/page.tsx` y `game-player.tsx`. Misma redirección para `id` inválido. Simulación: +10–99 puntos cada 220 ms, sube nivel según la regla de la plantilla, PAUSA/REANUDAR, FIN abre el modal. GUARDAR PUNTUACIÓN llama a `saveScore` y muestra "▸ PUNTUACIÓN GUARDADA_". JUGAR DE NUEVO reinicia. SALIR va a `/juegos/[id]`. El intervalo se limpia al desmontar.
 7. **Acceso.** Crear `app/login/page.tsx` y `auth-form.tsx`. Enviar el formulario guarda `{ name: (usuario || "PLAYER1").toUpperCase().slice(0, 10) }` y navega a `/`. JUGAR COMO INVITADO llama a `login(null)` y navega a `/`. Google y GitHub no hacen nada.
 8. **Salón de la Fama.** Crear `app/salon/page.tsx` y `hall-of-fame.tsx`. Pestaña inicial: primer juego de `GAMES`. Fila "TU MEJOR MARCA" solo con sesión. "VOLVER A LA BIBLIOTECA" va a `/`.
-9. **Metadatos.** Añadir `metadata` (o `generateMetadata` en las rutas dinámicas) con título por pantalla, p. ej. `"BLOQUE BUSTER · Arcade Vault"`.
+9. **Metadatos.** Añadir `metadata` (o `generateMetadata` en las rutas dinámicas) con título por pantalla, p. ej. `"BRICK BUSTER · Arcade Room"`.
 
 ---
 
@@ -142,8 +142,8 @@ Usar la skill `/frontend-design` en cada paso que construya UI (requisito de `CL
 - [ ] `npm run lint` termina sin errores.
 - [ ] Ninguna pantalla muestra errores ni advertencias de hidratación en la consola del navegador.
 - [ ] `/` muestra los 8 juegos de la plantilla.
-- [ ] Escribir "caí" en el buscador deja solo CAÍDA.
-- [ ] El chip SHOOTER deja solo INVASORES y ROCAS.
+- [ ] Escribir "free" en el buscador deja solo FREEFALL.
+- [ ] El chip SHOOTER deja solo INVADERS y ROCKS.
 - [ ] Una búsqueda sin coincidencias muestra "NO HAY RESULTADOS".
 - [ ] Hacer clic en una tarjeta navega a `/juegos/<id>` de ese juego.
 - [ ] `/juegos/caida` muestra portada, descripción larga, mejor global `184.220` y 10 filas de leaderboard.
@@ -169,6 +169,9 @@ Usar la skill `/frontend-design` en cada paso que construya UI (requisito de `CL
 - **No:** SPA con estado en el hash como la plantilla. No es idiomático en Next y rompe el historial.
 - **Sí:** reutilizar las clases ya portadas en `app/globals.css` (`.card`, `.av-grid`, `.podium`…). Máxima fidelidad con la plantilla.
 - **No:** reescribir con Tailwind o CSS Modules. Más trabajo y riesgo de diferencias visuales. Tailwind queda solo para ajustes puntuales.
+- **Sí:** la marca visible es **ARCADE ROOM** en todas las pantallas (navbar, footer, hero, cabecera de Acceso y títulos de página), en lugar del "ARCADE VAULT" de la plantilla. Decisión del usuario durante la implementación.
+- **Sí:** títulos de los juegos en inglés (BRICK BUSTER, FREEFALL, SERPENTINE, GLUTTON, INVADERS, ROCKS, FROGWAY, PIXEL DUEL). Los `id` (slugs de URL) y las descripciones no cambian. Decisión del usuario durante la implementación.
+- **Sí:** el botón de vuelta del Detalle y del modal del Reproductor dice "VOLVER A LA BIBLIOTECA" en lugar de "VOLVER AL VAULT".
 - **Sí:** datos ficticios en `app/data.ts`. Decisión del usuario: será reemplazado por una base de datos.
 - **Sí:** componentes compartidos en `app/components/`. Mantiene todo el código dentro de `app/`, junto a `app/data.ts`.
 - **Sí:** `localStorage` con las claves `av_user` y `av_scores` de la plantilla. Simula sesión sin backend.
