@@ -1,4 +1,4 @@
-// Datos ficticios de Arcade Vault.
+// Datos ficticios de Arcade Room.
 // Sustituto temporal de una futura base de datos (ver specs/01-mvp-pantallas-arcade-vault.md).
 
 export type Category = "ARCADE" | "PUZZLE" | "SHOOTER" | "VERSUS";
