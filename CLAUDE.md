@@ -23,3 +23,9 @@ Usa siempre /frontend-design para diseñar la interfaz de usuario.
 - Tipos globales generados por Next: los layouts/pages usan `LayoutProps<"/">` / `PageProps<...>` sin importarlos.
 - **Tailwind CSS v4** cargado vía loader de Turbopack (`@tailwindcss/turbopack`, regla `*.css` en `next.config.ts`), no PostCSS. No hay `tailwind.config`: tema definido con `@theme inline` en `app/globals.css` (tokens `--background`/`--foreground`, fuentes Geist).
 - Alias de import `@/*` apunta a la raíz del repo.
+
+## Variables de entorno
+
+Van en `.env.local` (no versionado: `.gitignore` excluye `.env*`).
+
+- `RESEND_API_KEY`: clave de API de [Resend](https://resend.com/api-keys), solo de servidor (sin prefijo `NEXT_PUBLIC_`). La usa la Server Action del formulario de contacto de `/acerca` (`app/acerca/actions.ts`). Si falta, el formulario muestra un error genérico y no envía. El remitente es `onboarding@resend.dev`, que solo entrega al correo dueño de la cuenta Resend.
