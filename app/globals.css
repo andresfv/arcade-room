@@ -1046,7 +1046,8 @@ a { color: inherit; text-decoration: none; }
 .home-silos .s3 { bottom: 18%; left: 12%; width: 88px; color: var(--yellow); animation-delay: -3s; }
 .home-silos .s4 { bottom: 22%; right: 14%; width: 60px; color: var(--green); animation-delay: -4.5s; }
 .home-silos .s5 { top: 38%; left: 4%; width: 70px; color: #aa00ff; animation-delay: -2s; }
-.home-silos .s6 { top: 8%; left: 46%; width: 44px; color: var(--gold); animation-delay: -3.5s; }
+.home-silos .s6 { top: 6%; left: calc(50% + 260px); width: 44px; color: var(--gold); animation-delay: -3.5s; }
+@media (max-width: 720px) { .home-silos .s6 { display: none; } }
 .home-silos .s7 { bottom: 12%; left: 42%; width: 52px; color: #ff3060; animation-delay: -1s; }
 .home-silos .s8 { top: 50%; right: 4%; width: 60px; color: #00d4ff; animation-delay: -5s; }
 @keyframes float { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-14px) rotate(2deg); } }
