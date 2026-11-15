@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useHydrated, useSession } from "@/app/components/session-provider";
 
-type Section = "inicio" | "biblioteca" | "salon" | "auth";
+type Section = "inicio" | "biblioteca" | "salon" | "acerca" | "auth";
 
 function sectionFor(pathname: string | null): Section | null {
   if (!pathname) return null;
@@ -13,6 +13,7 @@ function sectionFor(pathname: string | null): Section | null {
   // La Biblioteca sigue activa dentro de Detalle y Reproductor (/juegos/*).
   if (pathname.startsWith("/biblioteca") || pathname.startsWith("/juegos")) return "biblioteca";
   if (pathname.startsWith("/salon")) return "salon";
+  if (pathname.startsWith("/acerca")) return "acerca";
   if (pathname.startsWith("/login")) return "auth";
   return null;
 }
@@ -56,6 +57,9 @@ export function NavShell({ pathname }: { pathname: string | null }) {
           </Link>
           <Link href="/salon" className={cls("salon")} aria-current={active === "salon" ? "page" : undefined}>
             Salón de la Fama
+          </Link>
+          <Link href="/acerca" className={cls("acerca")} aria-current={active === "acerca" ? "page" : undefined}>
+            Acerca de
           </Link>
         </div>
         <div className="spacer"></div>
@@ -102,6 +106,9 @@ export function NavShell({ pathname }: { pathname: string | null }) {
         </Link>
         <Link href="/salon" className={cls("salon")} onClick={close}>
           Salón de la Fama
+        </Link>
+        <Link href="/acerca" className={cls("acerca")} onClick={close}>
+          Acerca de
         </Link>
         <Link href="/login" className={cls("auth")} onClick={close}>
           {user ? "Cuenta" : "Iniciar Sesión"}
