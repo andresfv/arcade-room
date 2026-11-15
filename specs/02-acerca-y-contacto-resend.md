@@ -1,6 +1,6 @@
 # SPEC 02 — Página Acerca de y formulario de contacto con Resend
 
-> **Status:** Aprobado
+> **Status:** Implementado
 > **Depends on:** SPEC 01
 > **Date:** 2026-11-15
 > **Objective:** Portar la pantalla About de `references/templates/home-about/` a la ruta `/acerca` y hacer que su formulario de contacto envíe un correo real mediante Resend.
@@ -128,28 +128,28 @@ Usar la skill `/frontend-design` en cada paso que construya UI (requisito de `CL
 
 ## Acceptance criteria
 
-- [ ] `npm run build` termina sin errores.
-- [ ] `npm run lint` termina sin errores.
-- [ ] `/acerca` no muestra errores ni advertencias de hidratación en la consola.
-- [ ] El título dice "ACERCA DE ARCADE ROOM" y la misión empieza por "ARCADE ROOM nació del amor…".
-- [ ] Se ven los 3 highlights (corazón magenta, navegador cian, planta verde) en 3 columnas; a ≤ 820 px pasan a 1 columna.
-- [ ] El divisor muestra 24 píxeles parpadeando.
-- [ ] La sección de contacto aparece con animación al hacer scroll.
-- [ ] A ≤ 900 px la intro y el formulario se apilan en 1 columna.
-- [ ] La navbar muestra "Acerca de" en escritorio y en el panel móvil, activo solo en `/acerca`.
-- [ ] La pestaña del navegador muestra "Acerca de · Arcade Room".
-- [ ] Enviar con algún campo vacío hace shake y no lanza ninguna petición al servidor.
-- [ ] Durante el envío el botón está deshabilitado y dice "▶  TRANSMITIENDO…".
-- [ ] Un envío válido entrega un correo en `andresfallasv@gmail.com` con asunto `[Arcade Room] Mensaje de {nombre}`.
-- [ ] Responder a ese correo dirige la respuesta al email escrito en el formulario.
-- [ ] Un mensaje con `<b>hola</b>` aparece como texto literal en el correo HTML, no en negrita.
-- [ ] Tras el éxito se ve la terminal "ROOM-OS // TERMINAL" con `room@arcade:~$` y "GRACIAS, {NOMBRE EN MAYÚSCULAS}."
-- [ ] "ENVIAR OTRO MENSAJE" muestra el formulario con los tres campos vacíos.
-- [ ] Sin `RESEND_API_KEY`, un envío válido muestra shake y "[ERROR] NO SE PUDO ENVIAR. INTÉNTALO DE NUEVO." y conserva lo escrito.
-- [ ] Rellenar `website` (vía DevTools) muestra la terminal de éxito y no llega ningún correo.
-- [ ] Un mensaje de más de 2000 caracteres devuelve error de validación sin enviar correo.
-- [ ] `RESEND_API_KEY` no aparece en ningún archivo versionado ni en el bundle del cliente.
-- [ ] La pantalla coincide visualmente con la vista About de `references/templates/home-about/arcade-vault-standalone.html` en escritorio y móvil (salvo la marca).
+- [x] `npm run build` termina sin errores.
+- [x] `npm run lint` termina sin errores.
+- [x] `/acerca` no muestra errores ni advertencias de hidratación en la consola.
+- [x] El título dice "ACERCA DE ARCADE ROOM" y la misión empieza por "ARCADE ROOM nació del amor…".
+- [x] Se ven los 3 highlights (corazón magenta, navegador cian, planta verde) en 3 columnas; a ≤ 820 px pasan a 1 columna.
+- [x] El divisor muestra 24 píxeles parpadeando.
+- [x] La sección de contacto aparece con animación al hacer scroll.
+- [x] A ≤ 900 px la intro y el formulario se apilan en 1 columna.
+- [x] La navbar muestra "Acerca de" en escritorio y en el panel móvil, activo solo en `/acerca`.
+- [x] La pestaña del navegador muestra "Acerca de · Arcade Room".
+- [x] Enviar con algún campo vacío hace shake y no lanza ninguna petición al servidor.
+- [x] Durante el envío el botón está deshabilitado y dice "▶  TRANSMITIENDO…".
+- [x] Un envío válido entrega un correo en `andresfallasv@gmail.com` con asunto `[Arcade Room] Mensaje de {nombre}`.
+- [x] Responder a ese correo dirige la respuesta al email escrito en el formulario.
+- [x] Un mensaje con `<b>hola</b>` aparece como texto literal en el correo HTML, no en negrita.
+- [x] Tras el éxito se ve la terminal "ROOM-OS // TERMINAL" con `room@arcade:~$` y "GRACIAS, {NOMBRE EN MAYÚSCULAS}."
+- [x] "ENVIAR OTRO MENSAJE" muestra el formulario con los tres campos vacíos.
+- [x] Sin `RESEND_API_KEY`, un envío válido muestra shake y "[ERROR] NO SE PUDO ENVIAR. INTÉNTALO DE NUEVO." y conserva lo escrito.
+- [x] Rellenar `website` (vía DevTools) muestra la terminal de éxito y no llega ningún correo.
+- [x] Un mensaje de más de 2000 caracteres devuelve error de validación sin enviar correo.
+- [x] `RESEND_API_KEY` no aparece en ningún archivo versionado ni en el bundle del cliente.
+- [x] La pantalla coincide visualmente con la vista About de `references/templates/home-about/arcade-vault-standalone.html` en escritorio y móvil (salvo la marca).
 
 ---
 
