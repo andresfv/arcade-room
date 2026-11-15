@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ContactForm } from "@/app/components/contact-form";
 import { HighlightIcon, type HighlightIconKind } from "@/app/components/highlight-icon";
 import { HomeReveal } from "@/app/components/home-reveal";
 
@@ -72,8 +73,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Marcador: el formulario real (ContactForm) llega en el paso 4. */}
-          <div className="contact-form" />
+          <ContactForm />
         </div>
       </section>
     </div>
