@@ -31,7 +31,7 @@ export default function GameDetailPage({ params }: PageProps<"/juegos/[id]">) {
 async function GameDetail({ params }: Pick<PageProps<"/juegos/[id]">, "params">) {
   const { id } = await params;
   const game = getGame(id);
-  if (!game) redirect("/");
+  if (!game) redirect("/biblioteca");
 
   const scores = seededScores(id.length * 17 + 3, 10);
 
@@ -72,7 +72,7 @@ async function GameDetail({ params }: Pick<PageProps<"/juegos/[id]">, "params">)
             <Link href={`/juegos/${game.id}/jugar`} className="btn xl pulse">
               ▶ JUGAR AHORA
             </Link>
-            <Link href="/" className="btn ghost lg">
+            <Link href="/biblioteca" className="btn ghost lg">
               VOLVER A LA BIBLIOTECA
             </Link>
           </div>

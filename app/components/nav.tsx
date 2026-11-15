@@ -5,12 +5,13 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useHydrated, useSession } from "@/app/components/session-provider";
 
-type Section = "biblioteca" | "salon" | "auth";
+type Section = "inicio" | "biblioteca" | "salon" | "auth";
 
 function sectionFor(pathname: string | null): Section | null {
   if (!pathname) return null;
+  if (pathname === "/") return "inicio";
   // La Biblioteca sigue activa dentro de Detalle y Reproductor (/juegos/*).
-  if (pathname === "/" || pathname.startsWith("/juegos")) return "biblioteca";
+  if (pathname.startsWith("/biblioteca") || pathname.startsWith("/juegos")) return "biblioteca";
   if (pathname.startsWith("/salon")) return "salon";
   if (pathname.startsWith("/login")) return "auth";
   return null;
@@ -40,14 +41,17 @@ export function NavShell({ pathname }: { pathname: string | null }) {
   return (
     <>
       <nav className="av-nav" aria-label="Principal">
-        <Link href="/" className="logo" onClick={close} aria-label="Arcade Room, ir a la Biblioteca">
+        <Link href="/" className="logo" onClick={close} aria-label="Arcade Room, ir al inicio">
           <div className="logo-mark" aria-hidden="true"></div>
           <div className="logo-text neon-cyan">
             ARCADE <span className="neon-magenta">ROOM</span>
           </div>
         </Link>
         <div className="links">
-          <Link href="/" className={cls("biblioteca")} aria-current={active === "biblioteca" ? "page" : undefined}>
+          <Link href="/" className={cls("inicio")} aria-current={active === "inicio" ? "page" : undefined}>
+            Inicio
+          </Link>
+          <Link href="/biblioteca" className={cls("biblioteca")} aria-current={active === "biblioteca" ? "page" : undefined}>
             Biblioteca
           </Link>
           <Link href="/salon" className={cls("salon")} aria-current={active === "salon" ? "page" : undefined}>
@@ -90,7 +94,10 @@ export function NavShell({ pathname }: { pathname: string | null }) {
         <div className="pixel neon-cyan" style={{ fontSize: 11, marginBottom: 16 }}>
           MENÚ
         </div>
-        <Link href="/" className={cls("biblioteca")} onClick={close}>
+        <Link href="/" className={cls("inicio")} onClick={close}>
+          Inicio
+        </Link>
+        <Link href="/biblioteca" className={cls("biblioteca")} onClick={close}>
           Biblioteca
         </Link>
         <Link href="/salon" className={cls("salon")} onClick={close}>
