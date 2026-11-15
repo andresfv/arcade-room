@@ -27,7 +27,7 @@ export default function GamePlayerPage({ params }: PageProps<"/juegos/[id]/jugar
 async function GamePlayerLoader({ params }: Pick<PageProps<"/juegos/[id]/jugar">, "params">) {
   const { id } = await params;
   const game = getGame(id);
-  if (!game) redirect("/");
+  if (!game) redirect("/biblioteca");
 
   return <GamePlayer game={game} />;
 }
