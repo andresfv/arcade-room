@@ -23,6 +23,7 @@ Usa siempre /frontend-design para diseñar la interfaz de usuario.
 - Tipos globales generados por Next: los layouts/pages usan `LayoutProps<"/">` / `PageProps<...>` sin importarlos.
 - **Tailwind CSS v4** cargado vía loader de Turbopack (`@tailwindcss/turbopack`, regla `*.css` en `next.config.ts`), no PostCSS. No hay `tailwind.config`: tema definido con `@theme inline` en `app/globals.css` (tokens `--background`/`--foreground`, fuentes Geist).
 - Alias de import `@/*` apunta a la raíz del repo.
+- **Prettier** (devDependency, `.prettierrc.json` con defaults, `pnpm format`) + ESLint. Hook `PostToolUse` de Claude Code (`.claude/settings.json` → `.claude/hooks/format-lint.mjs`) pasa cada archivo creado/editado por Prettier y, si es JS/TS, por `eslint --fix` con `no-multiple-empty-lines` en `max: 0` (elimina todas las líneas en blanco del código) y `--max-warnings 0`; si quedan errores o advertencias devuelve exit 2 para que Claude los corrija.
 
 ## Variables de entorno
 
