@@ -1,6 +1,6 @@
 # SPEC 03 — Integración base con Supabase
 
-> **Status:** Aprobado
+> **Status:** Implementada
 > **Depends on:** —
 > **Date:** 2026-11-18
 > **Objective:** Conectar la app de Next.js con el proyecto de Supabase mediante clientes de servidor y navegador reutilizables, sin tablas ni autenticación, para que las specs futuras construyan sobre ellos.
@@ -119,18 +119,18 @@ Antes de escribir código, consultar en `node_modules/next/dist/docs/` la refere
 
 ## Acceptance criteria
 
-- [ ] `package.json` lista `@supabase/supabase-js` y `@supabase/ssr` en `dependencies`.
-- [ ] `pnpm build` termina sin errores.
-- [ ] `pnpm lint` termina sin errores ni advertencias.
-- [ ] Con `.env.local` correcto, `pnpm supabase:check` imprime `[SUPABASE] OK https://xovaiiurwhzbwfltqalp.supabase.co` y sale con código 0.
-- [ ] Con `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` alterada, `pnpm supabase:check` imprime `[SUPABASE] ERROR …` y sale con código 1.
-- [ ] Sin `NEXT_PUBLIC_SUPABASE_URL`, `pnpm supabase:check` imprime `[SUPABASE] FALTA NEXT_PUBLIC_SUPABASE_URL` y sale con código 1.
-- [ ] `lib/supabase/server.ts` importa `cookies` de `next/headers` y exporta `createClient` asíncrona.
-- [ ] `lib/supabase/client.ts` exporta `createClient` y no importa nada de `next/headers`.
-- [ ] Ningún archivo versionado contiene la publishable key ni la URL completa del proyecto fuera de esta spec.
-- [ ] El esquema `public` de Supabase sigue sin tablas (`list_tables` devuelve `[]`).
-- [ ] Ninguna pantalla existente cambia de comportamiento: `localStorage` sigue siendo la fuente de sesión y puntuaciones.
-- [ ] `CLAUDE.md` documenta `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` y `pnpm supabase:check`.
+- [x] `package.json` lista `@supabase/supabase-js` y `@supabase/ssr` en `dependencies`.
+- [x] `pnpm build` termina sin errores.
+- [x] `pnpm lint` termina sin errores ni advertencias.
+- [x] Con `.env.local` correcto, `pnpm supabase:check` imprime `[SUPABASE] OK https://xovaiiurwhzbwfltqalp.supabase.co` y sale con código 0.
+- [x] Con `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` alterada, `pnpm supabase:check` imprime `[SUPABASE] ERROR …` y sale con código 1.
+- [x] Sin `NEXT_PUBLIC_SUPABASE_URL`, `pnpm supabase:check` imprime `[SUPABASE] FALTA NEXT_PUBLIC_SUPABASE_URL` y sale con código 1.
+- [x] `lib/supabase/server.ts` importa `cookies` de `next/headers` y exporta `createClient` asíncrona.
+- [x] `lib/supabase/client.ts` exporta `createClient` y no importa nada de `next/headers`.
+- [x] Ningún archivo versionado contiene la publishable key ni la URL completa del proyecto fuera de esta spec.
+- [x] El esquema `public` de Supabase sigue sin tablas (`list_tables` devuelve `[]`).
+- [x] Ninguna pantalla existente cambia de comportamiento: `localStorage` sigue siendo la fuente de sesión y puntuaciones.
+- [x] `CLAUDE.md` documenta `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` y `pnpm supabase:check`.
 
 ---
 
