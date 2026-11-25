@@ -23,6 +23,7 @@ Hoy la sesión y las puntuaciones se simulan en `localStorage` (`av_user`, `av_s
 - Cliente de navegador `lib/supabase/client.ts` (Client Components).
 - Script `scripts/supabase-check.mjs` y comando `pnpm supabase:check` que verifica conexión y clave, y sale con código 0 o 1.
 - Documentación de las variables y del script en `CLAUDE.md`.
+- `references/**` en los `globalIgnores` de `eslint.config.mjs`, para que `pnpm lint` pase (material de referencia con errores previos a esta spec).
 
 **Out of scope (para futuras specs):**
 
@@ -97,6 +98,7 @@ scripts/
 package.json             # (modificado) dependencias y script supabase:check
 pnpm-lock.yaml           # (modificado)
 CLAUDE.md                # (modificado) variables y script
+eslint.config.mjs        # (modificado) ignora references/**
 .env.local               # (local, no versionado)
 ```
 
@@ -152,6 +154,8 @@ Antes de escribir código, consultar en `node_modules/next/dist/docs/` la refere
 - **No:** tipos `Database` generados. Sin tablas no aportan; se generan en la primera spec con esquema.
 - **Sí (diferido):** las migraciones serán archivos SQL versionados en el repo. La carpeta y su convención las crea la primera spec con tablas.
 - **Sí:** `pnpm` como gestor. `CLAUDE.md` documenta `pnpm format`.
+- **Sí:** ignorar `references/**` en ESLint. Decisión del usuario durante la implementación: esos archivos (plantillas y juegos de referencia) ya fallaban `pnpm lint` antes de esta spec y no son código de la app.
+- **No:** corregir los errores de lint dentro de `references/`.
 
 ---
 
