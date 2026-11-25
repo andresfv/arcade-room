@@ -1,7 +1,6 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
-
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
@@ -12,7 +11,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Material de referencia (plantillas y juegos de partida), no es código de la app.
+    "references/**",
   ]),
 ]);
-
 export default eslintConfig;
